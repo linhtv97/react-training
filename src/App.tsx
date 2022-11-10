@@ -1,19 +1,28 @@
 import React, { useState } from 'react'
 import './App.css'
+import Submit from './components/Submit'
 import Input from './components/Input'
-import Typography from './components/Typography'
-import Button from './components/Button'
+import List from './components/List'
 
 function App() {
-  const [inputValue, setInputValue] = useState('')
+  const [todos, setTodos] = useState(['Learn React', 'Learn Nodejs'])
+  const [value, setValue] = useState('')
+
+  const handleAddNewTodo = () => {
+    const isComplicate = todos.find((element) => element === value)
+    if (!isComplicate) {
+      const newTodos = [...todos, value]
+      setTodos(newTodos)
+      setValue('')
+    } else {
+      alert('lap')
+    }
+  }
   return (
     <div className="App">
-      <Input
-        value={inputValue}
-        onChangeValue={(newValue) => setInputValue(newValue)}
-      />
-      <Typography value={inputValue} />
-      <Button onClickChange={() => setInputValue('')} />
+      <List todos={todos} />
+      <Submit handleAddNewTodo={handleAddNewTodo} />
+      <Input value={value} onChangeValue={setValue} />
     </div>
   )
 }
